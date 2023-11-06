@@ -1,0 +1,32 @@
+[user]
+  email = john.rae23@gmail.com
+  name = John Rae
+[core]
+  editor = vim
+  whitespace = fix, trailing-space
+  excludesfile = /Users/johnrae1/.gitignore
+[branch]
+  autosetuprebase = always
+[push]
+  default = simple
+[alias]
+  st = status
+  co = checkout
+  br = branch
+  lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  fpush = push --force-with-lease
+  branch-name = "!git rev-parse --abbrev-ref HEAD"
+  publish = "!git push -u origin $(git branch-name)"
+  save = "!git add -A && git commit && git publish"
+  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+  fix="!git add -A && git commit --amend && git fpush"
+  deploy-staging = "!git push origin staging && git push heroku-stg staging:master"
+  deploy-production = "!git checkout master && git pull && git push heroku master"
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+[rerere]
+  enabled = true
+[credential]
+  helper = osxkeychain
